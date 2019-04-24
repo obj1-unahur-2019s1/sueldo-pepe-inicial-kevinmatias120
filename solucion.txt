@@ -1,0 +1,73 @@
+object pepe{
+	var categoria
+	var property diasFalto = 0
+	var bonoXPresentismo
+	var bonoXResultado
+	
+	method neto(){return categoria.neto()}
+	
+	method falto(){ return diasFalto}
+	
+	method agregarCategoria(unaCategoria){categoria = unaCategoria}
+	
+	method agregarBonoXPresentismo(tipoBono){bonoXPresentismo = tipoBono}
+	
+	method agregarBonoXResultado(tipoBono){bonoXResultado = tipoBono}
+	
+	method sueldo(){
+		return self.neto() + bonoXResultado.bonoPorResultado() + bonoXPresentismo.bonoPorPresentismo()
+	}
+}
+
+object gerente{
+	method neto(){ return 15000}
+}
+
+object cadete{
+	method neto(){ return 20000}
+}
+//////bono resultado///////
+object bonoPorcentaje{
+	var property neto = 0
+	method bonoPorResultado(){return neto * 0.10}
+}
+
+object bonoFijo{
+	method bonoPorResultado(){return 800}
+}
+
+object bonoNulo{
+	method bonoPorResultado(){return 0}
+	method bonoPorPresentismo(){ return 0 }
+}
+/////////////bono presentismo///////////////
+object bonoNormal{
+	var property faltas = 0
+	method bonoPorPresentismo(){
+		if( faltas == 1){
+			return 1000
+		}else if ( faltas == 0){
+			return 2000	
+		}else{
+			return 0
+		}
+	}
+}
+
+object bonoAjuste{
+	var property faltas = 0
+	method bonoPorPresentismo(){
+		if(faltas == 0){
+			return 100
+		}else{ return 0 }
+	}
+}
+
+object bonoDemagogico{
+	var property neto = 0
+	method bonoPorPresentismo(){
+		if (neto < 18000){
+			return 500
+		}else {return 300}
+	}
+}
